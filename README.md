@@ -16,6 +16,26 @@ Open `http://127.0.0.1:4173/`.
 
 Edit `config.md` to change the title, tiers, review facets, and candidates.
 
+```md
+#My Ranking Board
+
+tiers: [S, A, B, C, D, F]
+
+## Facets
+
+| Facet | Weight | Max |
+| --- | ---: | ---: |
+| Ease of use | 1.0 | 10 |
+| Performance | 1.0 | 10 |
+
+## Candidates
+
+| Name | Image | Description | Tier | Ease of use | Performance |
+| --- | --- | --- | --- | ---: | ---: |
+| Atlas | ./assets/candidates/atlas.svg | Polished all-rounder. | Unranked | 8 | 9 |
+| Beacon | ./assets/candidates/beacon.svg | Friendly and quick to learn. | Unranked | 9 | 7 |
+```
+
 ## Docker
 
 ```yaml
