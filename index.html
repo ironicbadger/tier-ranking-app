@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>S-Tier Ranking Board</title>
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <main class="app-shell" data-app-shell>
+    <div class="scene-backdrop" aria-hidden="true"></div>
+    <header class="topbar">
+      <div class="brand">
+        <div class="brand-mark" aria-hidden="true"></div>
+        <div class="brand-copy">
+          <h1 data-title>S-Tier Ranking Board</h1>
+          <span>tier board</span>
+        </div>
+      </div>
+      <nav class="menu" aria-label="Board controls">
+        <button type="button" data-reset-config>Reset</button>
+      </nav>
+    </header>
+
+    <section class="workspace">
+      <section class="tier-board" aria-label="Tier ranking canvas" data-tier-board></section>
+
+      <aside class="right-rail" aria-label="Candidate list and host safe area">
+        <section class="unranked-panel" aria-label="Unranked candidates">
+          <div class="panel-header">
+            <b>Unranked</b>
+            <span data-unranked-count>0 candidates</span>
+          </div>
+          <div class="unranked-list" data-drop-zone="Unranked" data-unranked-list></div>
+        </section>
+
+        <section class="host-safe" aria-label="Host safe area"></section>
+      </aside>
+    </section>
+
+    <section class="detail-modal" aria-label="Selected candidate details" data-modal hidden>
+      <div class="modal-layout">
+        <article class="detail-card" data-detail-card></article>
+      </div>
+    </section>
+  </main>
+
+  <script src="./app.js" type="module"></script>
+</body>
+</html>

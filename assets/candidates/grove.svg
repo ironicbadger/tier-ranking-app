@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="540" viewBox="0 0 960 540" role="img" aria-label="Grove mock image">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#8d4df2"/><stop offset="1" stop-color="#28154f"/></linearGradient>
+    <linearGradient id="shine" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffffff" stop-opacity=".24"/><stop offset=".45" stop-color="#ffffff" stop-opacity=".04"/><stop offset="1" stop-color="#000000" stop-opacity=".28"/></linearGradient>
+    <filter id="shadow" x="-30%" y="-30%" width="160%" height="160%"><feDropShadow dx="0" dy="22" stdDeviation="18" flood-color="#000" flood-opacity=".42"/></filter>
+  </defs>
+  <rect width="960" height="540" rx="42" fill="#0d1018"/>
+  <rect width="960" height="540" rx="42" fill="url(#g)" opacity=".88"/>
+  <g opacity=".18">
+    <rect x="0" y="0" width="26" height="540" fill="#fff"/><rect x="58" y="0" width="26" height="540" fill="#fff"/><rect x="116" y="0" width="26" height="540" fill="#fff"/><rect x="174" y="0" width="26" height="540" fill="#fff"/><rect x="232" y="0" width="26" height="540" fill="#fff"/><rect x="290" y="0" width="26" height="540" fill="#fff"/><rect x="348" y="0" width="26" height="540" fill="#fff"/><rect x="406" y="0" width="26" height="540" fill="#fff"/><rect x="464" y="0" width="26" height="540" fill="#fff"/><rect x="522" y="0" width="26" height="540" fill="#fff"/><rect x="580" y="0" width="26" height="540" fill="#fff"/><rect x="638" y="0" width="26" height="540" fill="#fff"/><rect x="696" y="0" width="26" height="540" fill="#fff"/><rect x="754" y="0" width="26" height="540" fill="#fff"/><rect x="812" y="0" width="26" height="540" fill="#fff"/><rect x="870" y="0" width="26" height="540" fill="#fff"/>
+  </g>
+  <rect width="960" height="540" rx="42" fill="url(#shine)"/>
+  <g filter="url(#shadow)">
+    <rect x="350" y="154" width="260" height="210" rx="54" fill="rgba(7,9,14,.56)"/>
+    <rect x="375" y="128" width="210" height="210" rx="52" fill="url(#g)" stroke="#ffffff" stroke-opacity=".18" stroke-width="2"/>
+    <text x="480" y="254" text-anchor="middle" dominant-baseline="middle" fill="#fff" font-family="Inter,Arial,sans-serif" font-size="54" font-weight="900" letter-spacing="0">GR</text>
+  </g>
+  <text x="42" y="476" fill="#fff" font-family="Inter,Arial,sans-serif" font-size="26" font-weight="850" opacity=".92">Grove</text>
+</svg>

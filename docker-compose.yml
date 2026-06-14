@@ -1,0 +1,5 @@
+services:
+  tier-ranking-app:
+    build: .
+    ports:
+      - "4173:80"

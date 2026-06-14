@@ -1,0 +1,6 @@
+test-results/
+*.tar.gz
+.git/
+.gitignore
+.DS_Store
+node_modules/
