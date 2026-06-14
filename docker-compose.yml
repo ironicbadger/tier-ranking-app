@@ -1,5 +1,6 @@
 services:
   tier-ranking-app:
+    image: ghcr.io/ironicbadger/tier-ranking-app:latest
     build: .
     ports:
       - "4173:80"

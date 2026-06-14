@@ -19,3 +19,5 @@ Edit `config.md` to change the title, tiers, review facets, and candidates.
 ```sh
 docker compose up --build
 ```
+
+Image: `ghcr.io/ironicbadger/tier-ranking-app:latest`
