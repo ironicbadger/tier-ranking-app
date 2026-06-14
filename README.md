@@ -2,6 +2,8 @@
 
 Static browser app for ranking candidates into tiers.
 
+![Tier Ranking App screenshot](docs/screenshot.jpg)
+
 ## Run
 
 ```sh
