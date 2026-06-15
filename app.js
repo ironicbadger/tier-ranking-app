@@ -87,12 +87,6 @@ function wireStaticControls() {
     }
   });
 
-  els.configModal.addEventListener("click", (event) => {
-    if (event.target === els.configModal) {
-      closeConfigEditor();
-    }
-  });
-
   document.addEventListener("keydown", (event) => {
     if (event.key === "Escape") {
       if (!els.configModal.hidden) {
@@ -200,6 +194,7 @@ function applyEditorConfig() {
     applyConfig({ text, format: "yaml", source: "editor" });
     els.configSource.textContent = "editor";
     setConfigStatus("Applied YAML config.", "ok");
+    closeConfigEditor();
     showToast("Applied config.");
   } catch (error) {
     setConfigStatus(formatConfigError(error), "error");

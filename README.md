@@ -44,6 +44,14 @@ candidates:
 
 ## Docker
 
+With `just`:
+
+```sh
+just run-config
+```
+
+That builds the image and runs it on `http://127.0.0.1:4173/` with local `config.yml` mounted.
+
 ```yaml
 services:
   tier-ranking-app:
