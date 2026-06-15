@@ -487,6 +487,172 @@ button {
   display: none;
 }
 
+.config-modal {
+  position: absolute;
+  z-index: 45;
+  inset: 92px 22px 22px;
+  display: grid;
+  place-items: center;
+  padding: 28px;
+  border-radius: 18px;
+  background:
+    radial-gradient(circle at 58% 20%, rgba(0, 164, 220, 0.16), transparent 36%),
+    rgba(5, 6, 10, 0.72);
+  backdrop-filter: blur(16px);
+}
+
+.config-modal[hidden] {
+  display: none;
+}
+
+.config-panel {
+  width: min(1160px, 100%);
+  height: min(760px, 100%);
+  min-height: 0;
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  overflow: hidden;
+  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0.012)),
+    rgba(14, 16, 24, 0.96);
+  box-shadow: 0 34px 95px rgba(0, 0, 0, 0.56);
+}
+
+.config-header,
+.config-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 18px 20px;
+}
+
+.config-header {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.09);
+}
+
+.config-header h2 {
+  margin: 0;
+  color: #fff;
+  font-size: 30px;
+  line-height: 1;
+  font-weight: 950;
+  letter-spacing: 0;
+}
+
+.config-header span {
+  display: inline-block;
+  margin-top: 7px;
+  color: #9fa7b8;
+  font-size: 13px;
+  line-height: 1;
+  font-weight: 820;
+}
+
+.config-close {
+  width: 42px;
+  height: 42px;
+  flex: 0 0 auto;
+  display: grid;
+  place-items: center;
+  border-radius: 12px;
+  color: #f7f8fc;
+  background: #1d1f2a;
+  border: 1px solid rgba(255, 255, 255, 0.13);
+  font-size: 22px;
+  font-weight: 950;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.config-panel textarea {
+  min-width: 0;
+  min-height: 0;
+  width: calc(100% - 40px);
+  height: calc(100% - 20px);
+  margin: 10px 20px;
+  padding: 18px;
+  resize: none;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.13);
+  color: #eef2fb;
+  background:
+    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px) 0 0 / 56px 56px,
+    #080a10;
+  box-shadow:
+    inset 0 1px rgba(255, 255, 255, 0.06),
+    inset 0 0 0 1px rgba(0, 0, 0, 0.28);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+  font-size: 15px;
+  line-height: 1.46;
+  outline: none;
+  tab-size: 2;
+}
+
+.config-panel textarea:focus {
+  border-color: rgba(103, 215, 255, 0.68);
+  box-shadow:
+    0 0 0 3px rgba(103, 215, 255, 0.12),
+    inset 0 1px rgba(255, 255, 255, 0.08);
+}
+
+.config-footer {
+  border-top: 1px solid rgba(255, 255, 255, 0.09);
+}
+
+.config-footer p {
+  min-width: 0;
+  margin: 0;
+  color: #aeb5c4;
+  font-size: 14px;
+  line-height: 1.25;
+  font-weight: 750;
+}
+
+.config-footer p[data-tone="ok"] {
+  color: #8fdcff;
+}
+
+.config-footer p[data-tone="error"] {
+  color: #ff8aa3;
+}
+
+.config-actions {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.config-actions button {
+  height: 38px;
+  display: grid;
+  place-items: center;
+  padding: 0 14px;
+  border-radius: 11px;
+  color: #e8ebf4;
+  background: #1d1f2a;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.03em;
+  cursor: pointer;
+}
+
+.config-actions button[data-apply-config] {
+  color: #111217;
+  background: #ffd76a;
+  border-color: rgba(255, 255, 255, 0.28);
+}
+
+.app-shell.config-open > .workspace {
+  filter: blur(8px);
+  opacity: 0.42;
+  pointer-events: none;
+}
+
 .app-shell.modal-open > .workspace .tier-board {
   filter: blur(13px);
   opacity: 0.22;

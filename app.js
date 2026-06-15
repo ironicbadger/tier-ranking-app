@@ -42,12 +42,21 @@ const state = {
 const els = {
   app: document.querySelector("[data-app-shell]"),
   title: document.querySelector("[data-title]"),
+  openConfig: document.querySelector("[data-open-config]"),
   resetConfig: document.querySelector("[data-reset-config]"),
   tierBoard: document.querySelector("[data-tier-board]"),
   unrankedList: document.querySelector("[data-unranked-list]"),
   unrankedCount: document.querySelector("[data-unranked-count]"),
   modal: document.querySelector("[data-modal]"),
-  detailCard: document.querySelector("[data-detail-card]")
+  detailCard: document.querySelector("[data-detail-card]"),
+  configModal: document.querySelector("[data-config-modal]"),
+  configEditor: document.querySelector("[data-config-editor]"),
+  configStatus: document.querySelector("[data-config-status]"),
+  configSource: document.querySelector("[data-config-source]"),
+  closeConfig: document.querySelector("[data-close-config]"),
+  applyConfigEdit: document.querySelector("[data-apply-config]"),
+  downloadConfig: document.querySelector("[data-download-config]"),
+  saveConfig: document.querySelector("[data-save-config]")
 };
 
 let drag = null;
@@ -63,7 +72,14 @@ async function boot() {
 }
 
 function wireStaticControls() {
+  els.openConfig.addEventListener("click", openConfigEditor);
   els.resetConfig.addEventListener("click", resetFromDisk);
+  els.closeConfig.addEventListener("click", closeConfigEditor);
+  els.applyConfigEdit.addEventListener("click", applyEditorConfig);
+  els.downloadConfig.addEventListener("click", downloadEditorConfig);
+  els.saveConfig.addEventListener("click", saveEditorConfig);
+  els.configEditor.addEventListener("input", () => setConfigStatus(""));
+  els.saveConfig.hidden = typeof window.showSaveFilePicker !== "function";
 
   els.modal.addEventListener("click", (event) => {
     if (event.target === els.modal) {
@@ -71,9 +87,19 @@ function wireStaticControls() {
     }
   });
 
+  els.configModal.addEventListener("click", (event) => {
+    if (event.target === els.configModal) {
+      closeConfigEditor();
+    }
+  });
+
   document.addEventListener("keydown", (event) => {
     if (event.key === "Escape") {
-      if (!els.modal.hidden) closeModal();
+      if (!els.configModal.hidden) {
+        closeConfigEditor();
+      } else if (!els.modal.hidden) {
+        closeModal();
+      }
     }
   });
 
@@ -119,8 +145,13 @@ async function resetFromDisk() {
   try {
     const config = await loadConfig();
     applyConfig(config);
+    syncOpenConfigEditor();
+    setConfigStatus(`Reloaded ${config.source}.`, "ok");
     showToast(`Reset from ${config.source}.`);
   } catch {
+    if (!els.configModal.hidden) {
+      setConfigStatus("Could not reload config.yml.", "error");
+    }
     showToast("Could not refresh config.yml.");
   } finally {
     els.resetConfig.disabled = false;
@@ -139,6 +170,101 @@ function applyConfig(config) {
   state.selectedId = null;
   closeModal();
   render();
+}
+
+function openConfigEditor() {
+  closeModal();
+  els.app.classList.add("config-open");
+  els.configSource.textContent = state.configSource || "config.yml";
+  els.configEditor.value = getEditableYaml();
+  setConfigStatus("");
+  els.configModal.hidden = false;
+  els.configEditor.focus();
+}
+
+function closeConfigEditor() {
+  els.app.classList.remove("config-open");
+  els.configModal.hidden = true;
+}
+
+function syncOpenConfigEditor() {
+  if (els.configModal.hidden) return;
+  els.configSource.textContent = state.configSource || "config.yml";
+  els.configEditor.value = getEditableYaml();
+}
+
+function applyEditorConfig() {
+  const text = els.configEditor.value;
+  try {
+    parseConfig(text, "yaml");
+    applyConfig({ text, format: "yaml", source: "editor" });
+    els.configSource.textContent = "editor";
+    setConfigStatus("Applied YAML config.", "ok");
+    showToast("Applied config.");
+  } catch (error) {
+    setConfigStatus(formatConfigError(error), "error");
+  }
+}
+
+function downloadEditorConfig() {
+  const text = currentEditorText();
+  const url = URL.createObjectURL(new Blob([text], { type: "application/x-yaml;charset=utf-8" }));
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = "config.yml";
+  link.style.display = "none";
+  document.body.append(link);
+  link.click();
+  link.remove();
+  window.setTimeout(() => URL.revokeObjectURL(url), 0);
+  setConfigStatus("Downloaded config.yml.", "ok");
+}
+
+async function saveEditorConfig() {
+  if (typeof window.showSaveFilePicker !== "function") {
+    downloadEditorConfig();
+    return;
+  }
+
+  try {
+    const handle = await window.showSaveFilePicker({
+      suggestedName: "config.yml",
+      types: [{
+        description: "YAML config",
+        accept: { "application/x-yaml": [".yml", ".yaml"] }
+      }]
+    });
+    const writable = await handle.createWritable();
+    await writable.write(currentEditorText());
+    await writable.close();
+    setConfigStatus("Saved config.yml.", "ok");
+  } catch (error) {
+    if (error.name !== "AbortError") {
+      setConfigStatus(`Could not save config.yml: ${error.message}`, "error");
+    }
+  }
+}
+
+function currentEditorText() {
+  if (!els.configModal.hidden) return els.configEditor.value;
+  return getEditableYaml();
+}
+
+function getEditableYaml() {
+  if (state.configFormat === "yaml") return state.configText;
+  return exportYaml();
+}
+
+function setConfigStatus(message, tone = "") {
+  els.configStatus.textContent = message;
+  els.configStatus.dataset.tone = tone;
+}
+
+function formatConfigError(error) {
+  if (error.mark) {
+    return `YAML error on line ${error.mark.line + 1}, column ${error.mark.column + 1}: ${error.reason || error.message}`;
+  }
+  return error.message || "Config could not be applied.";
 }
 
 function parseConfig(text, format) {

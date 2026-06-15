@@ -16,6 +16,8 @@ Open `http://127.0.0.1:4173/`.
 
 Edit `config.yml` to change the title, tiers, rubric, and candidates.
 
+The app also has a `Config` button. It opens the current YAML in the browser so you can edit it, validate with `Apply`, and export it with `Download config.yml`. Browsers with file save support also show `Save as config.yml`. `Reset` reloads `config.yml` from disk/network.
+
 ```yaml
 title: "#My Ranking Board"
 tiers: [S, A, B, C, D, F]
